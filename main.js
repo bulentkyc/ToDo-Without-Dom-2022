@@ -49,6 +49,15 @@ const editItem = () => {
     toDoList[itemIndex].itemText = newText;
 }
 
+const deleteItem = () => {
+    let msg = `
+    ${getToDoList()}
+    Please type a number of the item to delete
+    `
+    let itemIndex = prompt(msg);
+    toDoList.splice(itemIndex, 1);
+}
+
 /////////////////////////////////////////////////////
 
 
@@ -58,6 +67,7 @@ Please type a new todo or
 1. Make any item done or undone
 2. Edit any item on the list
 3. Delete any item
+4. Show the list
 q. Quit
 `;
 
@@ -74,6 +84,11 @@ do {
             break;
     
         case '3':
+            deleteItem();
+            break;
+    
+        case '4':
+            alert(getToDoList());
             break;
     
         case 'q':
