@@ -1,12 +1,15 @@
 let toDoList = [];
 
 /////////////////////////////////////////////////////
+//Function to receive todoas a text to push into the toDoList array 
+//as an object with isDone property 
 const createToDo = (itemText) => {
     toDoList.push({itemText, isDone:false});
 }
 
 console.log(toDoList);
-
+//Function to read from array and prepare a list to show on prompt message.
+//returns the final list
 const getToDoList = () => {
     let list = '';
 
@@ -18,7 +21,10 @@ const getToDoList = () => {
     return list;
 }
 
-
+//Function to find correct object in the toDoList array
+//uses getToDoList to have list of todos
+//uses index numbers that propted by user
+//calls switchDone function to switch value of isDone
 const getItemToSwitchDone = () => {
     let msg = `
     ${getToDoList()}
@@ -28,9 +34,21 @@ const getItemToSwitchDone = () => {
     switchDone(toDoList[itemIndex])
 }
 
+//Function to switch isDone property of any object
 const switchDone = (item) => {
     item.isDone = !item.isDone;
 }
+
+const editItem = () => {
+    let msg = `
+    ${getToDoList()}
+    Please type a number of the item to edit
+    `
+    let itemIndex = prompt(msg);
+    let newText = prompt('Please update the task', toDoList[itemIndex].itemText);
+    toDoList[itemIndex].itemText = newText;
+}
+
 /////////////////////////////////////////////////////
 
 
@@ -42,6 +60,7 @@ Please type a new todo or
 3. Delete any item
 q. Quit
 `;
+
 do {
     toDoItem = prompt(menu , 'q');
 
@@ -51,6 +70,7 @@ do {
             break;
     
         case '2':
+            editItem();
             break;
     
         case '3':
