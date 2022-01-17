@@ -1,7 +1,8 @@
+//This array keeps all todo items
 let toDoList = [];
 
 /////////////////////////////////////////////////////
-//Function to receive todoas a text to push into the toDoList array 
+//Function to receive todo as a text to push into the toDoList array 
 //as an object with isDone property 
 const createToDo = (itemText) => {
     toDoList.push({itemText, isDone:false});
@@ -21,22 +22,31 @@ const getToDoList = () => {
     return list;
 }
 
-//Function to find correct object in the toDoList array
-//uses getToDoList to have list of todos
-//uses index numbers that propted by user
-//calls switchDone function to switch value of isDone
-const getItemToSwitchDone = () => {
-    let msg = `
-    ${getToDoList()}
-    Please type a number of the item to swtich the status
-    `
-    let itemIndex = prompt(msg);
-    switchDone(toDoList[itemIndex])
-}
-
 //Function to switch isDone property of any object
 const switchDone = (item) => {
     item.isDone = !item.isDone;
+}
+
+const getIndexPropmpter = (text) => {
+    let msg = `
+    ${getToDoList()}
+    Please type a number of the item to ${text}
+    `
+    return prompt(msg, `Number between 0 - ${toDoList.length-1}`);
+}
+
+//Function to find correct object in the toDoList array
+//uses getToDoList to have list of todos
+//uses index numbers that prompted by user
+//calls switchDone function to switch value of isDone
+const getItemToSwitchDone = () => {
+    /* let msg = `
+    ${getToDoList()}
+    Please type a number of the item to swtich the status
+    `
+    let itemIndex = prompt(msg); */
+    let itemIndex = getIndexPropmpter('swtich the status');
+    switchDone(toDoList[itemIndex])
 }
 
 const editItem = () => {
@@ -62,16 +72,20 @@ const deleteItem = () => {
 
 
 let toDoItem;
-const menu = `
-Please type a new todo or
-1. Make any item done or undone
-2. Edit any item on the list
-3. Delete any item
-4. Show the list
-q. Quit
-`;
+
 
 do {
+    console.table(toDoList)
+    const menu = `
+    ${getToDoList()}
+    Please type a new todo or
+    1. Make any item done or undone
+    2. Edit any item on the list
+    3. Delete any item
+    4. Show the list
+    q. Quit
+    `;
+
     toDoItem = prompt(menu , 'q');
 
     switch (toDoItem) {
@@ -100,7 +114,4 @@ do {
     }
 
 } while (toDoItem !== 'q');
-
-
-
 
